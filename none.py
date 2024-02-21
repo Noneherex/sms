@@ -1,20 +1,12 @@
 import requests
 
-def fetch_data(phone_number):
-    url = f"https://api.call.teamxdraco.my.id/all-in-one.php?phone={phone_number}"
-    response = requests.get(url)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        return None
-
-def main():
-    phone_number = input("Enter Bangladeshi phone number (without country code and 0): ")
-    data = fetch_data(phone_number)
-    if data:
-        print(data)
-    else:
-        print("Failed to fetch data.")
+def send_verification(phone_number):
+    url = "https://bikroy.com/data/phone_number_login/verifications/phone_login"
+    payload = {"phone": phone_number}
+    response = requests.post(url, data=payload)
+    return response.text
 
 if __name__ == "__main__":
-    main()
+    phone_number = input("Enter Bangladeshi phone number (without country code): ")
+    response = send_verification(phone_number)
+    print(response)
